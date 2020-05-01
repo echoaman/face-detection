@@ -9,6 +9,7 @@ LBFmodel = 'lbfmodel.yaml'
 
 landmark_detector  = cv2.face.createFacemarkLBF()
 landmark_detector.loadModel(LBFmodel)
+
 # while True:
 #     ret, img = cap.read()
 #     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -42,16 +43,24 @@ while(True):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # Detect faces using the haarcascade classifier on the "grayscale image"
-    faces = face_detect.detectMultiScale(gray)    
+    faces = face_detect.detectMultiScale(gray, 1.05, 5)    
 
     for (x,y,w,d) in faces:
         # Detect landmarks on "gray"
         _, landmarks = landmark_detector.fit(gray, np.array(faces))
 
-        print('adabdka', landmarks)
         for landmark in landmarks:
-            print('landmark' , landmark)
-            for x,y in landmark[0][36:42]:
+            temp = landmark[0][36:42]
+            topx,topy = temp[1]
+            rightx,righty = temp[2]
+            bottomx,bottomy = temp[4]
+            leftx,lefty = temp[5]
+
+            print('top left',topy - lefty)
+            print('botttom right',righty - bottomy)
+
+
+            for x,y in temp:
                 # display landmarks on "frame/image,"
                 # with blue colour in BGR and thickness 2
                 cv2.circle(frame, (x, y), 1, (255, 0, 0), 2)
