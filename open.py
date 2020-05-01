@@ -48,9 +48,10 @@ while(True):
         # Detect landmarks on "gray"
         _, landmarks = landmark_detector.fit(gray, np.array(faces))
 
-        print(landmarks)
+        print('adabdka', landmarks)
         for landmark in landmarks:
-            for x,y in landmark[0]:
+            print('landmark' , landmark)
+            for x,y in landmark[0][36:42]:
                 # display landmarks on "frame/image,"
                 # with blue colour in BGR and thickness 2
                 cv2.circle(frame, (x, y), 1, (255, 0, 0), 2)
